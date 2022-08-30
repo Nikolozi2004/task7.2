@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useRef } from "react";
+import useOutsideClick from './hooks/useOutsideClick'
 
 function App() {
+  const ref = useRef()
+  const [isModalOpen, setModalOpen] = useState(false);
+  useOutsideClick(ref, () => setModalOpen(false));
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {isModalOpen ? (
+        <div ref={ref} className='modal'>
+          This uses useOutsideclick click outside this div
+        </div>
+      ) : (
+        <button onClick={() => setModalOpen(true)}>Open Modal</button>
+      )}
     </div>
   );
 }
